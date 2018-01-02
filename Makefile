@@ -50,8 +50,21 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = src/main.cpp 
-OBJECTS       = main.o
+SOURCES       = src/main.cpp \
+		src/window.cpp \
+		src/textbox.cpp \
+		src/filelist.cpp \
+		src/functions.cpp \
+		src/custombutton.cpp qrc_resources.cpp \
+		moc_filelist.cpp
+OBJECTS       = main.o \
+		window.o \
+		textbox.o \
+		filelist.o \
+		functions.o \
+		custombutton.o \
+		qrc_resources.o \
+		moc_filelist.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -329,7 +342,16 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/exceptions.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
-		Project.pro include/window.h src/main.cpp
+		Project.pro include/window.h \
+		include/textbox.h \
+		include/filelist.h \
+		include/functions.h \
+		include/custombutton.h src/main.cpp \
+		src/window.cpp \
+		src/textbox.cpp \
+		src/filelist.cpp \
+		src/functions.cpp \
+		src/custombutton.cpp
 QMAKE_TARGET  = Project
 DESTDIR       = 
 TARGET        = Project
@@ -619,6 +641,7 @@ Makefile: Project.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mkspe
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
 		Project.pro \
+		resources.qrc \
 		/usr/lib/libQt5Widgets.prl \
 		/usr/lib/libQt5Gui.prl \
 		/usr/lib/libQt5Core.prl
@@ -901,6 +924,7 @@ Makefile: Project.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/mkspe
 /usr/lib/qt/mkspecs/features/yacc.prf:
 /usr/lib/qt/mkspecs/features/lex.prf:
 Project.pro:
+resources.qrc:
 /usr/lib/libQt5Widgets.prl:
 /usr/lib/libQt5Gui.prl:
 /usr/lib/libQt5Core.prl:
@@ -918,9 +942,10 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents include/window.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents include/window.h include/textbox.h include/filelist.h include/functions.h include/custombutton.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/main.cpp src/window.cpp src/textbox.cpp src/filelist.cpp src/functions.cpp src/custombutton.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -944,16 +969,28 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_resources.cpp
+qrc_resources.cpp: resources.qrc \
+		/usr/bin/rcc \
+		res/app.png
+	/usr/bin/rcc -name resources resources.qrc -o qrc_resources.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -Wall -W -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all:
+compiler_moc_header_make_all: moc_filelist.cpp
 compiler_moc_header_clean:
+	-$(DEL_FILE) moc_filelist.cpp
+moc_filelist.cpp: include/filelist.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I'/home/michael/Documents/Facultate/Anul 2/Reţele de calculatoare/Project' -I'/home/michael/Documents/Facultate/Anul 2/Reţele de calculatoare/Project' -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.1 -I/usr/include/c++/7.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include-fixed -I/usr/include include/filelist.h -o moc_filelist.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
@@ -966,12 +1003,39 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean 
 
 ####### Compile
 
-main.o: src/main.cpp 
+main.o: src/main.cpp include/window.h \
+		include/textbox.h \
+		include/filelist.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
+
+window.o: src/window.cpp include/window.h \
+		include/textbox.h \
+		include/filelist.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o window.o src/window.cpp
+
+textbox.o: src/textbox.cpp include/textbox.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o textbox.o src/textbox.cpp
+
+filelist.o: src/filelist.cpp include/custombutton.h \
+		include/functions.h \
+		include/filelist.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o filelist.o src/filelist.cpp
+
+functions.o: src/functions.cpp include/functions.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o functions.o src/functions.cpp
+
+custombutton.o: src/custombutton.cpp include/custombutton.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o custombutton.o src/custombutton.cpp
+
+qrc_resources.o: qrc_resources.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
+
+moc_filelist.o: moc_filelist.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_filelist.o moc_filelist.cpp
 
 ####### Install
 

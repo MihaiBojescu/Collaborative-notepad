@@ -33,7 +33,13 @@ RESOURCES = resources.qrc
 
 # Input
 HEADERS += include/window.h \
-    include/textbox.h
+    include/textbox.h \
+    include/filelist.h \
+    include/functions.h \
+    include/custombutton.h
 SOURCES += src/main.cpp \
     src/window.cpp \
-    src/textbox.cpp
+    src/textbox.cpp \
+    src/filelist.cpp \
+    src/functions.cpp \
+    src/custombutton.cpp
