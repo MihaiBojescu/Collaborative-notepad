@@ -25,6 +25,7 @@ private:
     QAction* openFileAction;
     QAction* openNetworkFileAction;
     QAction* saveFileAction;
+    QAction* closeTabAction;
 
     FileList* list;
 
@@ -39,13 +40,14 @@ private:
     void createActions();
     void createMenu();
 
-    void sendNetworkFile(QString filaname);
-    void recvNetworkFile();
+    void sendNetworkFile(QString filename);
+    void recvNetworkFile(QString filename);
 
 private slots:
     void openFile();
     void openNetworkFile();
     void saveFile();
+    void closeTab();
 };
 
 #endif // WINDOW_H

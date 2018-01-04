@@ -9,6 +9,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
+#include "include/functions.h"
 #include "include/window.h"
 #include "include/filelist.h"
 
@@ -33,11 +34,14 @@ Window::Window()
     this->setLayout(this->layout);
     this->setWindowIcon(QIcon(":/res/app.png"));
     this->resize(400, 300);
+    this->setWindowTitle("Collaborative notepad");
 }
 
 Window::~Window()
 {
     delete this->textBox;
+    for(auto widget: this->tabWidget->children())
+        delete widget;
     delete this->tabWidget;
     delete this->layout;
     delete this->fileMenu;
@@ -65,6 +69,11 @@ void Window::createActions()
     this->saveFileAction->setShortcut(QKeySequence::Save);
     this->saveFileAction->setStatusTip(tr("Save a file"));
     connect(this->saveFileAction, &QAction::triggered, this, &Window::saveFile);
+
+    this->closeTabAction = new QAction(tr("Close tab"), this);
+    this->closeTabAction->setShortcut(QKeySequence::fromString("ctrl+w"));
+    this->closeTabAction->setStatusTip(tr("Close current tab"));
+    connect(this->closeTabAction, &QAction::triggered, this, &Window::closeTab);
 }
 
 void Window::createSocket()
@@ -94,17 +103,30 @@ void Window::createMenu()
     this->fileMenu->addAction(this->openFileAction);
     this->fileMenu->addAction(this->openNetworkFileAction);
     this->fileMenu->addAction(this->saveFileAction);
+    this->fileMenu->addAction(this->closeTabAction);
 }
 
 
 void Window::sendNetworkFile(QString filename)
 {
+    QString sendData = "Sending " + filename;
+    sendString(this->socket, sendData);
 
+    sendData = this->textBox->toPlainText();
+    sendString(this->socket, sendData);
+    sendEnd(this->socket);
 }
 
-void Window::recvNetworkFile()
+void Window::recvNetworkFile(QString filename)
 {
+    sendString(this->socket, QString("Open " + filename));
+    sendEnd(this->socket);
+    QString tabText = readStringFromSocket(this->socket);
+    QString textBoxText = readStringFromSocket(this->socket);
 
+
+    this->tabWidget->setTabText(0, tabText);
+    this->textBox->setText(textBoxText);
 }
 
 void Window::openFile()
@@ -112,18 +134,24 @@ void Window::openFile()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open file"), "", tr("Text file (*.txt)"));
     if(fileName != "")
     {
+        std::string fileNameSTD = fileName.toStdString();
         struct stat st;
-        stat(fileName.toStdString().data(), &st);
+        stat(fileNameSTD.data(), &st);
         int fileSize = st.st_size;
         char* string = (char*)malloc(sizeof(char) * fileSize);
 
-        int fileD = ::open(fileName.toStdString().data(), O_RDONLY);
+        int fileD = ::open(fileNameSTD.data(), O_RDONLY);
         ::read(fileD, string, fileSize);
         ::close(fileD);
         string[fileSize] = '\0';
 
-        this->textBox->setText(tr(string));
-        this->tabWidget->setTabText(0, fileName);
+        size_t i = fileNameSTD.rfind("/", fileNameSTD.length());
+        if(i != std::string::npos)
+            fileName = fileNameSTD.substr(i + 1, fileNameSTD.length() - 1).c_str();
+
+        TextBox* newTextBox = new TextBox();
+        newTextBox->setText(tr(string));
+        this->tabWidget->addTab(newTextBox, fileName);
         free(string);
 
         this->sendNetworkFile(fileName);
@@ -135,7 +163,12 @@ void Window::openNetworkFile()
     if(this->list == NULL)
     {
         this->list = new FileList(this->socket);
+        this->list->exec();
+
         QString filename = this->list->getOption();
+        if(filename != "")
+            recvNetworkFile(filename);
+
         delete this->list;
         this->list = NULL;
     }
@@ -153,4 +186,10 @@ void Window::saveFile()
         ::write(fileD, string, strlen(string));
         ::close(fileD);
     }
+}
+
+void Window::closeTab()
+{
+    delete this->tabWidget->widget(this->tabWidget->currentIndex())->children()[0];
+    this->tabWidget->removeTab(this->tabWidget->currentIndex());
 }

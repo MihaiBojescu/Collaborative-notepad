@@ -10,17 +10,16 @@ FileList::FileList(int socket)
     this->setLayout(this->layout);
 
     QString buffer;
+    int readStringsNumber = 0;
     const char* sendString = "Send\0";
 
-    if(::write(this->socket, sendString, ::strlen(sendString)) == -1)
-    {
-        ::perror("Write send message error.");
-        ::exit(1);
-    }
+    ::sendString(this->socket, sendString);
+    ::sendEnd(this->socket);
 
     do
     {
         buffer = readStringFromSocket(this->socket);
+        readStringsNumber++;
 
         if(buffer.size() > 0)
         {
@@ -47,7 +46,14 @@ FileList::FileList(int socket)
         }
     } while(buffer.size() != 0);
 
-    this->exec();
+    if(buffer.size() == 0 && readStringsNumber == 1)
+    {
+        QLabel* newLabel = new QLabel("No files are currently open");
+        this->resize(150, 100);
+        this->layout->addWidget(newLabel);
+    }
+
+    this->setWindowTitle("Open network file");
 }
 
 FileList::~FileList()

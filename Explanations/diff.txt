@@ -1,0 +1,61 @@
+new hello world     |   hellr worl world
+new                 |   hellr
+hello               |   worl
+world               |   world
+
+
+
+new:
+    - hellr? !  |
+    - worl? !   | -> none -> new word
+    - world? !  |
+
+hello:
+    - hellr? ~  | -> found, hellr exclus, hello exclus
+    - worl? !   |
+    - world? !  |
+    
+world:
+    - worl? ~   |
+    - world? =  | ->  found, exclus world din ambele parti
+
+
+astazi vom compara niste stringuri          |   astazi nu vom compara stringuri
+astazi                                      |   astazi
+vom                                         |   nu
+compara                                     |   vom
+niste                                       |   compara
+stringuri                                   |   stringuri
+
+
+astazi:
+    - astazi? =         | -> perfect match, excludem astazi din ambele parti
+
+vom:
+    - nu? !             |
+    - vom? =            | -> perfect match, excludem vom din ambele parti
+    
+compara:
+    - nu? !
+    - compara? =        | -> perfect match, excludem compara din ambele parti
+    
+niste:
+    - nu? !             |
+    - stringuri? !      | -> none -> new word, excludem din lista
+    
+stringuri:
+    - nu? !             |
+    - stringuri? =      | -> perfect match, excludem stringuri din lista
+    
+    
+ramane nu, pe care îl dăm ca şi cuvând şters.
+    
+    
+    
+---------------------------------------------------------------------------------
+|                                       Test                                    |
+---------------------------------------------------------------------------------
+
+
+astazi vom compara niste stringuri
+astazi nu vom compara stringuri
