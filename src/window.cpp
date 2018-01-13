@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QDebug>
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -148,6 +149,7 @@ void Window::openFile()
 
         TextBox* newTextBox = new TextBox(this->commThread);
         newTextBox->setIgnoreNextEvent();
+        newTextBox->setFileName(fileName);
         newTextBox->setText(tr(string));
         int newTab = this->tabWidget->addTab(newTextBox, fileName);
         this->tabWidget->setCurrentIndex(newTab);
@@ -233,6 +235,7 @@ void Window::closeTab()
 
 void Window::onJsonReceived(QJsonObject object)
 {
+    qDebug() << object["reason"];
     if(object.contains("reason"))
         if(object["reason"] == "Open file")
             if(object["filename"].toString() != "|NULL|" && object["filecontent"].toString() != "|NULL|")

@@ -2,6 +2,7 @@
 #include "include/functions.h"
 #include "include/communicationthread.h"
 
+#include <QDebug>
 #include <QJsonObject>
 #include <QJsonDocument>
 
@@ -54,6 +55,7 @@ void TextBox::onTextChanged()
         QJsonDocument document(object);
         QString result(document.toJson(QJsonDocument::Compact));
 
+        qDebug() << result;
         sendString(thread->getSocket(), result);
 
     }
