@@ -1,8 +1,9 @@
 <map id="/home/michael/Facultate/Anul 2/Reţele de calculatoare/Project/include/textbox.h" name="/home/michael/Facultate/Anul 2/Reţele de calculatoare/Project/include/textbox.h">
 <area shape="rect" id="node2" href="$moc__textbox_8cpp.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/build/moc_textbox.cpp" alt="" coords="5,109,208,165"/>
 <area shape="rect" id="node3" href="$window_8h.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/include/window.h" alt="" coords="232,109,429,165"/>
-<area shape="rect" id="node6" href="$communicationthread_8cpp.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/src/communicationthread.cpp" alt="" coords="453,109,696,165"/>
-<area shape="rect" id="node7" href="$textbox_8cpp.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/src/textbox.cpp" alt="" coords="720,109,917,165"/>
-<area shape="rect" id="node4" href="$moc__window_8cpp.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/build/moc_window.cpp" alt="" coords="117,213,320,269"/>
-<area shape="rect" id="node5" href="$window_8cpp.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/src/window.cpp" alt="" coords="344,213,541,269"/>
+<area shape="rect" id="node7" href="$communicationthread_8cpp.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/src/communicationthread.cpp" alt="" coords="453,109,696,165"/>
+<area shape="rect" id="node8" href="$textbox_8cpp.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/src/textbox.cpp" alt="" coords="720,109,917,165"/>
+<area shape="rect" id="node4" href="$moc__window_8cpp.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/build/moc_window.cpp" alt="" coords="5,213,208,269"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/src/main.cpp" alt="" coords="232,213,429,269"/>
+<area shape="rect" id="node6" href="$window_8cpp.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/src/window.cpp" alt="" coords="453,213,651,269"/>
 </map>

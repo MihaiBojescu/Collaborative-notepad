@@ -190,31 +190,19 @@ void Window::saveFile()
                                                     this->tabWidget->tabText(this->tabWidget->currentIndex()).mid(1, this->tabWidget->tabText(this->tabWidget->currentIndex()).length()),
                                                     tr("Any file (*.*)"));
 
-    TextBox* textBox = NULL;
-    QWidget* widget = this->tabWidget->widget(this->tabWidget->currentIndex());
-    if (widget->metaObject()->className() == QString("TextBox"))
-        textBox = (TextBox*)widget;
-    else
-    {
-        QList<TextBox*> allTextBoxes = widget->findChildren<TextBox*>();
-        if (allTextBoxes.count() != 1)
-            return;
-
-        textBox = allTextBoxes[0];
-    }
-    TextBox* currentTextBox = textBox;
+    TextBox* textBox = (TextBox*) this->tabWidget->currentWidget();
 
     std::string filenameSTD = filename.toStdString();
     size_t i = filenameSTD.rfind("/", filenameSTD.length());
     if(i != std::string::npos)
         filename = filenameSTD.substr(i + 1, filenameSTD.length() - 1).c_str();
 
-    currentTextBox->setFileName(filename);
+    textBox->setFileName(filename);
     this->tabWidget->setTabText(this->tabWidget->currentIndex(), filename);
 
     if(filename != "")
     {
-        const char* string = currentTextBox->toPlainText().toLatin1().data();
+        const char* string = textBox->toPlainText().toLatin1().data();
 
         int fileD = ::open(filename.toStdString().data(), O_WRONLY | O_CREAT | O_TRUNC);
         ::write(fileD, string, strlen(string));
