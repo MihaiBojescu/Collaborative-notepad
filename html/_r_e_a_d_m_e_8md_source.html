@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Collaborative notepad: README.md Source File</title>
+<title>Collaborative notepad: /home/michael/Facultate/Anul 2/Reţele de calculatoare/Project/README.md Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="app.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Collaborative notepad
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">The client part of the collaborative notepad aplication</div>
   </td>
@@ -83,10 +83,10 @@ $(document).ready(function(){initNavTree('_r_e_a_d_m_e_8md.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">README.md</div>  </div>
+<div class="title">/home/michael/Facultate/Anul 2/Reţele de calculatoare/Project/README.md</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_r_e_a_d_m_e_8md.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;# Collaborative-notepad</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;A notepad application in which every client in a network can work upon a certain (user chosen) document.</div></div><!-- fragment --></div><!-- contents -->
+<a href="_r_e_a_d_m_e_8md.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;# Collaborative notepad client</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;A notepad application in which every client in a network can work upon a certain (user chosen) document.</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;![Project logo](https://github.com/MihaiBojescu/Collaborative-notepad/blob/master/res/app.png &quot;Collaborative notepad&quot;)</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;# Dependencies</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;The compilation dependencies for this project are:</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;* glibc (GNU C Library)</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;* Qt framework 5.10</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;Dependencies can be installed like this:</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;* `sudo apt install glibc qt5-default` for Debian based distributions</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;* `sudo pacman -Sy glibc qt5` for Arch based distributions</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;# Compiling</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;Run `qmake Project.pro`, and then `make -f Makefile` in the root directory of the project.</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;# Usage</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;The keybings are the following:</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;* `CTRL + N` -&gt; New file</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;* `CTRL + S` -&gt; Save file</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;* `CTRL + O` -&gt; Open file</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;* `CTRL + U` -&gt; Open network file</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;* `CTRL + W` -&gt; Close tab</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;The application is made to feel natural. A client can start to edit right away. Changes will be mirrored automatically to the server and also to the other connected client using the same file the used is using.</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;# Photo examples:</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;Running on KDE Plasma 5.11</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;![Example](https://github.com/MihaiBojescu/Collaborative-notepad/blob/master/res/example.png &quot;Example&quot;)</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;![Menu](https://github.com/MihaiBojescu/Collaborative-notepad/blob/master/res/menu.png &quot;Menu&quot;)</div></div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

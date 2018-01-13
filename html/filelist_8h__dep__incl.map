@@ -1,10 +1,7 @@
-<map id="include/filelist.h" name="include/filelist.h">
-<area shape="rect" id="node2" href="$build_2moc__filelist_8cpp.html" title="build/moc_filelist.cpp" alt="" coords="150,80,294,107"/>
-<area shape="rect" id="node3" href="$window_8h.html" title="include/window.h" alt="" coords="319,80,440,107"/>
-<area shape="rect" id="node7" href="$window_8cpp.html" title="src/window.cpp" alt="" coords="453,155,565,181"/>
-<area shape="rect" id="node8" href="$moc__filelist_8cpp.html" title="moc_filelist.cpp" alt="" coords="516,80,629,107"/>
-<area shape="rect" id="node9" href="$filelist_8cpp.html" title="src/filelist.cpp" alt="" coords="654,80,758,107"/>
-<area shape="rect" id="node4" href="$build_2moc__window_8cpp.html" title="build/moc_window.cpp" alt="" coords="5,155,159,181"/>
-<area shape="rect" id="node5" href="$moc__window_8cpp.html" title="moc_window.cpp" alt="" coords="183,155,306,181"/>
-<area shape="rect" id="node6" href="$main_8cpp.html" title="src/main.cpp" alt="" coords="331,155,428,181"/>
+<map id="/home/michael/Facultate/Anul 2/Reţele de calculatoare/Project/include/filelist.h" name="/home/michael/Facultate/Anul 2/Reţele de calculatoare/Project/include/filelist.h">
+<area shape="rect" id="node2" href="$moc__filelist_8cpp.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/build/moc_filelist.cpp" alt="" coords="5,109,203,165"/>
+<area shape="rect" id="node3" href="$window_8h.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/include/window.h" alt="" coords="227,109,424,165"/>
+<area shape="rect" id="node5" href="$window_8cpp.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/src/window.cpp" alt="" coords="363,213,560,269"/>
+<area shape="rect" id="node6" href="$filelist_8cpp.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/src/filelist.cpp" alt="" coords="499,109,696,165"/>
+<area shape="rect" id="node4" href="$moc__window_8cpp.html" title="/home/michael/Facultate\l/Anul 2/Reţele de calculatoare\l/Project/build/moc_window.cpp" alt="" coords="136,213,339,269"/>
 </map>

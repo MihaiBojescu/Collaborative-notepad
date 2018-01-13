@@ -14,7 +14,7 @@ TextBox::TextBox(CommunicationThread *thread)
     connect(thread, SIGNAL(receivedMessage(QJsonObject)), this, SLOT(onJsonReceived(QJsonObject)));
 }
 
-TextBox::~TextBox()
+void TextBox::disconnectEvents()
 {
     disconnect(this, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
     disconnect(thread, SIGNAL(receivedMessage(QJsonObject)), this, SLOT(onJsonReceived(QJsonObject)));
@@ -33,6 +33,11 @@ void TextBox::setIgnoreNextEvent()
 QString TextBox::getDifference(QString newString, QString originalString = "")
 {
     return newString;
+}
+
+QString TextBox::getFileName()
+{
+    return this->fileName;
 }
 
 void TextBox::onTextChanged()

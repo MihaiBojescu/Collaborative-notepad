@@ -224,6 +224,22 @@ void Window::saveFile()
 
 void Window::closeTab()
 {
+    TextBox* reference = (TextBox*) this->tabWidget->currentWidget();
+    if(reference != NULL)
+    {
+        reference->disconnectEvents();
+        if(reference->getFileName() != "|NULL|")
+        {
+            QJsonObject object;
+            object["reason"] = "Disconnect";
+            object["filename"] = reference->getFileName();
+
+            QJsonDocument document(object);
+            QString sendData = document.toJson(QJsonDocument::Compact);
+            sendString(this->commThread->getSocket(), sendData);
+        }
+        delete reference;
+    }
     this->tabWidget->removeTab(this->tabWidget->currentIndex());
 }
 

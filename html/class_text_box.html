@@ -30,7 +30,7 @@
   <td id="projectlogo"><img alt="Logo" src="app.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Collaborative notepad
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">The client part of the collaborative notepad aplication</div>
   </td>
@@ -96,11 +96,15 @@ $(document).ready(function(){initNavTree('class_text_box.html','');});
 Inheritance diagram for TextBox:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_text_box__inherit__graph.png" border="0" usemap="#_text_box_inherit__map" alt="Inheritance graph"/></div>
+<map name="_text_box_inherit__map" id="_text_box_inherit__map">
+</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for TextBox:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_text_box__coll__graph.png" border="0" usemap="#_text_box_coll__map" alt="Collaboration graph"/></div>
+<map name="_text_box_coll__map" id="_text_box_coll__map">
+</map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-slots"></a>
@@ -114,12 +118,14 @@ Public Slots</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afc674d42cb4bf2b07115f067b27b5e4a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_box.html#afc674d42cb4bf2b07115f067b27b5e4a">TextBox</a> (<a class="el" href="class_communication_thread.html">CommunicationThread</a> *thread)</td></tr>
 <tr class="separator:afc674d42cb4bf2b07115f067b27b5e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3cc88a3ac171658ebaf44b01f4adf80"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_box.html#ac3cc88a3ac171658ebaf44b01f4adf80">~TextBox</a> ()</td></tr>
-<tr class="separator:ac3cc88a3ac171658ebaf44b01f4adf80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad47cfaf672a58c3795bc5e8a5a2ab982"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_box.html#ad47cfaf672a58c3795bc5e8a5a2ab982">disconnectEvents</a> ()</td></tr>
+<tr class="separator:ad47cfaf672a58c3795bc5e8a5a2ab982"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae844b2f803d89d4e07f4985b846c33a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_box.html#ae844b2f803d89d4e07f4985b846c33a1">setFileName</a> (QString fileName)</td></tr>
 <tr class="separator:ae844b2f803d89d4e07f4985b846c33a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab90841c2de5cb98571dfcee727162b0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_box.html#ab90841c2de5cb98571dfcee727162b0f">setIgnoreNextEvent</a> ()</td></tr>
 <tr class="separator:ab90841c2de5cb98571dfcee727162b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf79ccdbd6761e41716703c38f5e722c"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_text_box.html#adf79ccdbd6761e41716703c38f5e722c">getFileName</a> ()</td></tr>
+<tr class="separator:adf79ccdbd6761e41716703c38f5e722c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -157,14 +163,15 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="ac3cc88a3ac171658ebaf44b01f4adf80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3cc88a3ac171658ebaf44b01f4adf80">&#9670;&nbsp;</a></span>~TextBox()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad47cfaf672a58c3795bc5e8a5a2ab982"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad47cfaf672a58c3795bc5e8a5a2ab982">&#9670;&nbsp;</a></span>disconnectEvents()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TextBox::~TextBox </td>
+          <td class="memname">void TextBox::disconnectEvents </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -176,19 +183,53 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="class_text_box_ac3cc88a3ac171658ebaf44b01f4adf80_cgraph.png" border="0" usemap="#class_text_box_ac3cc88a3ac171658ebaf44b01f4adf80_cgraph" alt=""/></div>
-<map name="class_text_box_ac3cc88a3ac171658ebaf44b01f4adf80_cgraph" id="class_text_box_ac3cc88a3ac171658ebaf44b01f4adf80_cgraph">
-<area shape="rect" id="node2" href="class_text_box.html#a2877d8e9891067e4c811afee1c23975a" title="TextBox::onTextChanged" alt="" coords="191,71,359,98"/>
-<area shape="rect" id="node5" href="class_text_box.html#a814e041678adbb0673ecbad6bdbdb702" title="TextBox::onJsonReceived" alt="" coords="188,122,363,149"/>
-<area shape="rect" id="node3" href="class_communication_thread.html#a4fa5c2df6c6a074b4be5f5ce99616ecf" title="CommunicationThread\l::getSocket" alt="" coords="432,5,584,47"/>
-<area shape="rect" id="node4" href="functions_8h.html#a856136a6d93be60fb2d7663c33db2b4f" title="sendString" alt="" coords="466,71,550,98"/>
-<area shape="rect" id="node6" href="class_text_box.html#ab90841c2de5cb98571dfcee727162b0f" title="TextBox::setIgnoreNextEvent" alt="" coords="411,122,605,149"/>
+<div class="center"><img src="class_text_box_ad47cfaf672a58c3795bc5e8a5a2ab982_cgraph.png" border="0" usemap="#class_text_box_ad47cfaf672a58c3795bc5e8a5a2ab982_cgraph" alt=""/></div>
+<map name="class_text_box_ad47cfaf672a58c3795bc5e8a5a2ab982_cgraph" id="class_text_box_ad47cfaf672a58c3795bc5e8a5a2ab982_cgraph">
+<area shape="rect" id="node2" href="class_text_box.html#a2877d8e9891067e4c811afee1c23975a" title="TextBox::onTextChanged" alt="" coords="239,71,407,98"/>
+<area shape="rect" id="node5" href="class_text_box.html#a814e041678adbb0673ecbad6bdbdb702" title="TextBox::onJsonReceived" alt="" coords="236,122,411,149"/>
+<area shape="rect" id="node3" href="class_communication_thread.html#a4fa5c2df6c6a074b4be5f5ce99616ecf" title="CommunicationThread\l::getSocket" alt="" coords="480,5,632,47"/>
+<area shape="rect" id="node4" href="functions_8h.html#a856136a6d93be60fb2d7663c33db2b4f" title="sendString" alt="" coords="514,71,598,98"/>
+<area shape="rect" id="node6" href="class_text_box.html#ab90841c2de5cb98571dfcee727162b0f" title="TextBox::setIgnoreNextEvent" alt="" coords="459,122,653,149"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_text_box_ad47cfaf672a58c3795bc5e8a5a2ab982_icgraph.png" border="0" usemap="#class_text_box_ad47cfaf672a58c3795bc5e8a5a2ab982_icgraph" alt=""/></div>
+<map name="class_text_box_ad47cfaf672a58c3795bc5e8a5a2ab982_icgraph" id="class_text_box_ad47cfaf672a58c3795bc5e8a5a2ab982_icgraph">
+<area shape="rect" id="node2" href="class_window.html#a245d821e6016fa1f6970ccbbedd635f6" title="Window::~Window" alt="" coords="236,5,368,32"/>
 </map>
 </div>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a id="adf79ccdbd6761e41716703c38f5e722c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf79ccdbd6761e41716703c38f5e722c">&#9670;&nbsp;</a></span>getFileName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString TextBox::getFileName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="textbox_8cpp_source.html#l00038">38</a> of file <a class="el" href="textbox_8cpp_source.html">textbox.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_text_box_adf79ccdbd6761e41716703c38f5e722c_icgraph.png" border="0" usemap="#class_text_box_adf79ccdbd6761e41716703c38f5e722c_icgraph" alt=""/></div>
+<map name="class_text_box_adf79ccdbd6761e41716703c38f5e722c_icgraph" id="class_text_box_adf79ccdbd6761e41716703c38f5e722c_icgraph">
+<area shape="rect" id="node2" href="class_window.html#a245d821e6016fa1f6970ccbbedd635f6" title="Window::~Window" alt="" coords="205,5,337,32"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a814e041678adbb0673ecbad6bdbdb702"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a814e041678adbb0673ecbad6bdbdb702">&#9670;&nbsp;</a></span>onJsonReceived</h2>
 
@@ -213,7 +254,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="textbox_8cpp_source.html#l00059">59</a> of file <a class="el" href="textbox_8cpp_source.html">textbox.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="textbox_8cpp_source.html#l00064">64</a> of file <a class="el" href="textbox_8cpp_source.html">textbox.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -227,8 +268,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_text_box_a814e041678adbb0673ecbad6bdbdb702_icgraph.png" border="0" usemap="#class_text_box_a814e041678adbb0673ecbad6bdbdb702_icgraph" alt=""/></div>
 <map name="class_text_box_a814e041678adbb0673ecbad6bdbdb702_icgraph" id="class_text_box_a814e041678adbb0673ecbad6bdbdb702_icgraph">
-<area shape="rect" id="node2" href="class_text_box.html#afc674d42cb4bf2b07115f067b27b5e4a" title="TextBox::TextBox" alt="" coords="232,5,359,32"/>
-<area shape="rect" id="node3" href="class_text_box.html#ac3cc88a3ac171658ebaf44b01f4adf80" title="TextBox::~TextBox" alt="" coords="228,56,363,83"/>
+<area shape="rect" id="node2" href="class_text_box.html#afc674d42cb4bf2b07115f067b27b5e4a" title="TextBox::TextBox" alt="" coords="256,5,383,32"/>
+<area shape="rect" id="node3" href="class_text_box.html#ad47cfaf672a58c3795bc5e8a5a2ab982" title="TextBox::disconnectEvents" alt="" coords="228,56,411,83"/>
+<area shape="rect" id="node4" href="class_window.html#a245d821e6016fa1f6970ccbbedd635f6" title="Window::~Window" alt="" coords="459,56,591,83"/>
 </map>
 </div>
 
@@ -257,7 +299,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="textbox_8cpp_source.html#l00038">38</a> of file <a class="el" href="textbox_8cpp_source.html">textbox.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="textbox_8cpp_source.html#l00043">43</a> of file <a class="el" href="textbox_8cpp_source.html">textbox.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -272,8 +314,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_text_box_a2877d8e9891067e4c811afee1c23975a_icgraph.png" border="0" usemap="#class_text_box_a2877d8e9891067e4c811afee1c23975a_icgraph" alt=""/></div>
 <map name="class_text_box_a2877d8e9891067e4c811afee1c23975a_icgraph" id="class_text_box_a2877d8e9891067e4c811afee1c23975a_icgraph">
-<area shape="rect" id="node2" href="class_text_box.html#afc674d42cb4bf2b07115f067b27b5e4a" title="TextBox::TextBox" alt="" coords="225,5,352,32"/>
-<area shape="rect" id="node3" href="class_text_box.html#ac3cc88a3ac171658ebaf44b01f4adf80" title="TextBox::~TextBox" alt="" coords="221,56,356,83"/>
+<area shape="rect" id="node2" href="class_text_box.html#afc674d42cb4bf2b07115f067b27b5e4a" title="TextBox::TextBox" alt="" coords="249,5,376,32"/>
+<area shape="rect" id="node3" href="class_text_box.html#ad47cfaf672a58c3795bc5e8a5a2ab982" title="TextBox::disconnectEvents" alt="" coords="221,56,404,83"/>
+<area shape="rect" id="node4" href="class_window.html#a245d821e6016fa1f6970ccbbedd635f6" title="Window::~Window" alt="" coords="452,56,584,83"/>
 </map>
 </div>
 
@@ -330,20 +373,20 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_text_box_ab90841c2de5cb98571dfcee727162b0f_icgraph.png" border="0" usemap="#class_text_box_ab90841c2de5cb98571dfcee727162b0f_icgraph" alt=""/></div>
 <map name="class_text_box_ab90841c2de5cb98571dfcee727162b0f_icgraph" id="class_text_box_ab90841c2de5cb98571dfcee727162b0f_icgraph">
-<area shape="rect" id="node2" href="class_text_box.html#a814e041678adbb0673ecbad6bdbdb702" title="TextBox::onJsonReceived" alt="" coords="248,31,423,57"/>
-<area shape="rect" id="node5" href="class_window.html#a245d821e6016fa1f6970ccbbedd635f6" title="Window::~Window" alt="" coords="269,81,401,108"/>
-<area shape="rect" id="node6" href="class_window.html#a42d7e97515bb763d8c150822e17e23bd" title="Window::onJsonReceived" alt="" coords="248,132,423,159"/>
-<area shape="rect" id="node3" href="class_text_box.html#afc674d42cb4bf2b07115f067b27b5e4a" title="TextBox::TextBox" alt="" coords="475,5,601,32"/>
-<area shape="rect" id="node4" href="class_text_box.html#ac3cc88a3ac171658ebaf44b01f4adf80" title="TextBox::~TextBox" alt="" coords="471,56,605,83"/>
-<area shape="rect" id="node7" href="class_window.html#a74e6087da23d3c24e9fac0245e5ec92c" title="Window::Window" alt="" coords="476,132,600,159"/>
+<area shape="rect" id="node2" href="class_text_box.html#a814e041678adbb0673ecbad6bdbdb702" title="TextBox::onJsonReceived" alt="" coords="248,56,423,83"/>
+<area shape="rect" id="node5" href="class_window.html#a245d821e6016fa1f6970ccbbedd635f6" title="Window::~Window" alt="" coords="701,81,833,108"/>
+<area shape="rect" id="node6" href="class_window.html#a42d7e97515bb763d8c150822e17e23bd" title="Window::onJsonReceived" alt="" coords="248,157,423,184"/>
+<area shape="rect" id="node3" href="class_text_box.html#afc674d42cb4bf2b07115f067b27b5e4a" title="TextBox::TextBox" alt="" coords="499,5,625,32"/>
+<area shape="rect" id="node4" href="class_text_box.html#ad47cfaf672a58c3795bc5e8a5a2ab982" title="TextBox::disconnectEvents" alt="" coords="471,56,653,83"/>
+<area shape="rect" id="node7" href="class_window.html#a74e6087da23d3c24e9fac0245e5ec92c" title="Window::Window" alt="" coords="500,157,624,184"/>
 </map>
 </div>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/<a class="el" href="textbox_8h_source.html">textbox.h</a></li>
-<li>src/<a class="el" href="textbox_8cpp_source.html">textbox.cpp</a></li>
+<li>/home/michael/Facultate/Anul 2/Reţele de calculatoare/Project/include/<a class="el" href="textbox_8h_source.html">textbox.h</a></li>
+<li>/home/michael/Facultate/Anul 2/Reţele de calculatoare/Project/src/<a class="el" href="textbox_8cpp_source.html">textbox.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,7 +1,11 @@
 <map id="Window::~Window" name="Window::~Window">
-<area shape="rect" id="node2" href="$functions_8h.html#a856136a6d93be60fb2d7663c33db2b4f" title="sendString" alt="" coords="241,5,325,32"/>
-<area shape="rect" id="node3" href="$class_communication_thread.html#a4fa5c2df6c6a074b4be5f5ce99616ecf" title="CommunicationThread\l::getSocket" alt="" coords="207,57,359,98"/>
-<area shape="rect" id="node4" href="$class_text_box.html#ab90841c2de5cb98571dfcee727162b0f" title="TextBox::setIgnoreNextEvent" alt="" coords="185,123,380,149"/>
-<area shape="rect" id="node5" href="$class_file_list.html#afef338c1a846a32d600498b910c8c85c" title="FileList::getOption" alt="" coords="219,173,347,200"/>
-<area shape="rect" id="node6" href="$class_text_box.html#ae844b2f803d89d4e07f4985b846c33a1" title="TextBox::setFileName" alt="" coords="207,224,359,251"/>
+<area shape="rect" id="node2" href="$functions_8h.html#a856136a6d93be60fb2d7663c33db2b4f" title="sendString" alt="" coords="694,87,778,114"/>
+<area shape="rect" id="node3" href="$class_communication_thread.html#a4fa5c2df6c6a074b4be5f5ce99616ecf" title="CommunicationThread\l::getSocket" alt="" coords="660,160,812,201"/>
+<area shape="rect" id="node4" href="$class_text_box.html#ab90841c2de5cb98571dfcee727162b0f" title="TextBox::setIgnoreNextEvent" alt="" coords="639,26,833,52"/>
+<area shape="rect" id="node5" href="$class_file_list.html#afef338c1a846a32d600498b910c8c85c" title="FileList::getOption" alt="" coords="213,234,341,260"/>
+<area shape="rect" id="node6" href="$class_text_box.html#ae844b2f803d89d4e07f4985b846c33a1" title="TextBox::setFileName" alt="" coords="201,284,353,311"/>
+<area shape="rect" id="node7" href="$class_text_box.html#ad47cfaf672a58c3795bc5e8a5a2ab982" title="TextBox::disconnectEvents" alt="" coords="185,82,368,108"/>
+<area shape="rect" id="node10" href="$class_text_box.html#adf79ccdbd6761e41716703c38f5e722c" title="TextBox::getFileName" alt="" coords="201,335,353,362"/>
+<area shape="rect" id="node8" href="$class_text_box.html#a2877d8e9891067e4c811afee1c23975a" title="TextBox::onTextChanged" alt="" coords="419,82,587,108"/>
+<area shape="rect" id="node9" href="$class_text_box.html#a814e041678adbb0673ecbad6bdbdb702" title="TextBox::onJsonReceived" alt="" coords="416,31,591,58"/>
 </map>

@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['readstringfromsocket',['readStringFromSocket',['../functions_8h.html#a6a5a8df7b0aca680164dbbf4ee4b171a',1,'readStringFromSocket(int &amp;socket):&#160;functions.cpp'],['../functions_8cpp.html#a6a5a8df7b0aca680164dbbf4ee4b171a',1,'readStringFromSocket(int &amp;socket):&#160;functions.cpp']]],
-  ['receivedmessage',['receivedMessage',['../class_communication_thread.html#ad67a7a8567971f88714255976632ea9d',1,'CommunicationThread']]],
-  ['run',['run',['../class_communication_thread.html#a8448d5811c29e5a74a85cd12f3430f85',1,'CommunicationThread']]]
+  ['qcleanupresources_5fresources',['qCleanupResources_resources',['../qrc__resources_8cpp.html#a965ea2a594ce638d7293d61a8599eae9',1,'qrc_resources.cpp']]],
+  ['qinitresources_5fresources',['qInitResources_resources',['../qrc__resources_8cpp.html#ae8bfccbb1cb12020e6159bd493744036',1,'qrc_resources.cpp']]],
+  ['qregisterresourcedata',['qRegisterResourceData',['../qrc__resources_8cpp.html#a2ce5a6cde5b318dc75442940471e05f7',1,'qrc_resources.cpp']]],
+  ['qunregisterresourcedata',['qUnregisterResourceData',['../qrc__resources_8cpp.html#a54b96c9f44d004fc0ea13bb581f97a71',1,'qrc_resources.cpp']]]
 ];

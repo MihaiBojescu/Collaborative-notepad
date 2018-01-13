@@ -1,8 +1,8 @@
 <map id="TextBox::setIgnoreNextEvent" name="TextBox::setIgnoreNextEvent">
-<area shape="rect" id="node2" href="$class_text_box.html#a814e041678adbb0673ecbad6bdbdb702" title="TextBox::onJsonReceived" alt="" coords="248,31,423,57"/>
-<area shape="rect" id="node5" href="$class_window.html#a245d821e6016fa1f6970ccbbedd635f6" title="Window::~Window" alt="" coords="269,81,401,108"/>
-<area shape="rect" id="node6" href="$class_window.html#a42d7e97515bb763d8c150822e17e23bd" title="Window::onJsonReceived" alt="" coords="248,132,423,159"/>
-<area shape="rect" id="node3" href="$class_text_box.html#afc674d42cb4bf2b07115f067b27b5e4a" title="TextBox::TextBox" alt="" coords="475,5,601,32"/>
-<area shape="rect" id="node4" href="$class_text_box.html#ac3cc88a3ac171658ebaf44b01f4adf80" title="TextBox::~TextBox" alt="" coords="471,56,605,83"/>
-<area shape="rect" id="node7" href="$class_window.html#a74e6087da23d3c24e9fac0245e5ec92c" title="Window::Window" alt="" coords="476,132,600,159"/>
+<area shape="rect" id="node2" href="$class_text_box.html#a814e041678adbb0673ecbad6bdbdb702" title="TextBox::onJsonReceived" alt="" coords="248,56,423,83"/>
+<area shape="rect" id="node5" href="$class_window.html#a245d821e6016fa1f6970ccbbedd635f6" title="Window::~Window" alt="" coords="701,81,833,108"/>
+<area shape="rect" id="node6" href="$class_window.html#a42d7e97515bb763d8c150822e17e23bd" title="Window::onJsonReceived" alt="" coords="248,157,423,184"/>
+<area shape="rect" id="node3" href="$class_text_box.html#afc674d42cb4bf2b07115f067b27b5e4a" title="TextBox::TextBox" alt="" coords="499,5,625,32"/>
+<area shape="rect" id="node4" href="$class_text_box.html#ad47cfaf672a58c3795bc5e8a5a2ab982" title="TextBox::disconnectEvents" alt="" coords="471,56,653,83"/>
+<area shape="rect" id="node7" href="$class_window.html#a74e6087da23d3c24e9fac0245e5ec92c" title="Window::Window" alt="" coords="500,157,624,184"/>
 </map>

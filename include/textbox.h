@@ -11,9 +11,10 @@ class TextBox : public QTextEdit
 
 public:
     TextBox(CommunicationThread* thread);
-    ~TextBox();
+    void disconnectEvents();
     void setFileName(QString fileName);
     void setIgnoreNextEvent();
+    QString getFileName();
 
 private:
     QString getDifference(QString newString, QString originalString);

@@ -6,5 +6,5 @@ var searchData=
   ['custombutton',['CustomButton',['../class_custom_button.html',1,'CustomButton'],['../class_custom_button.html#a3fee97ea35d83032b7fa96a078da14e2',1,'CustomButton::CustomButton()']]],
   ['custombutton_2ecpp',['custombutton.cpp',['../custombutton_8cpp.html',1,'']]],
   ['custombutton_2eh',['custombutton.h',['../custombutton_8h.html',1,'']]],
-  ['collaborative_2dnotepad',['Collaborative-notepad',['../md__r_e_a_d_m_e.html',1,'']]]
+  ['collaborative_20notepad_20client',['Collaborative notepad client',['../md__home_michael__facultate__anul_2__re_xC5_xA3ele_de_calculatoare__project__r_e_a_d_m_e.html',1,'']]]
 ];

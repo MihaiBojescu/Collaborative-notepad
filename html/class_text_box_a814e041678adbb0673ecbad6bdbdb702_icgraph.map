@@ -1,4 +1,5 @@
 <map id="TextBox::onJsonReceived" name="TextBox::onJsonReceived">
-<area shape="rect" id="node2" href="$class_text_box.html#afc674d42cb4bf2b07115f067b27b5e4a" title="TextBox::TextBox" alt="" coords="232,5,359,32"/>
-<area shape="rect" id="node3" href="$class_text_box.html#ac3cc88a3ac171658ebaf44b01f4adf80" title="TextBox::~TextBox" alt="" coords="228,56,363,83"/>
+<area shape="rect" id="node2" href="$class_text_box.html#afc674d42cb4bf2b07115f067b27b5e4a" title="TextBox::TextBox" alt="" coords="256,5,383,32"/>
+<area shape="rect" id="node3" href="$class_text_box.html#ad47cfaf672a58c3795bc5e8a5a2ab982" title="TextBox::disconnectEvents" alt="" coords="228,56,411,83"/>
+<area shape="rect" id="node4" href="$class_window.html#a245d821e6016fa1f6970ccbbedd635f6" title="Window::~Window" alt="" coords="459,56,591,83"/>
 </map>
