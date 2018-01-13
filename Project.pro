@@ -36,10 +36,12 @@ HEADERS += include/window.h \
     include/textbox.h \
     include/filelist.h \
     include/functions.h \
-    include/custombutton.h
+    include/custombutton.h \
+    include/communicationthread.h
 SOURCES += src/main.cpp \
     src/window.cpp \
     src/textbox.cpp \
     src/filelist.cpp \
     src/functions.cpp \
-    src/custombutton.cpp
+    src/custombutton.cpp \
+    src/communicationthread.cpp

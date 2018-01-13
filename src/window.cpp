@@ -1,7 +1,13 @@
+#include "include/functions.h"
+#include "include/window.h"
+#include "include/filelist.h"
+
 #include <QIcon>
 #include <QMenu>
 #include <QKeySequence>
 #include <QFileDialog>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -9,9 +15,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "include/functions.h"
-#include "include/window.h"
-#include "include/filelist.h"
 
 Window::Window()
 {
@@ -19,27 +22,26 @@ Window::Window()
     this->fileMenu  = new QMenu();
     this->layout    = new QBoxLayout(QBoxLayout::LeftToRight);
     this->tabWidget = new QTabWidget();
-    this->textBox   = new TextBox();
     this->list      = NULL;
 
     this->createSocket();
     this->createActions();
     this->createMenu();
 
+    connect(commThread, SIGNAL(receivedMessage(QJsonObject)), this, SLOT(onJsonReceived(QJsonObject)));
+
     this->layout->addWidget(this->tabWidget);
     this->layout->setMargin(0);
     this->layout->setMenuBar(this->mainMenu);
-    this->tabWidget->addTab(this->textBox, tr("New tab"));
 
     this->setLayout(this->layout);
     this->setWindowIcon(QIcon(":/res/app.png"));
-    this->resize(400, 300);
     this->setWindowTitle("Collaborative notepad");
+    this->resize(640, 480);
 }
 
 Window::~Window()
 {
-    delete this->textBox;
     for(auto widget: this->tabWidget->children())
         delete widget;
     delete this->tabWidget;
@@ -61,7 +63,7 @@ void Window::createActions()
     connect(openFileAction, &QAction::triggered, this, &Window::openFile);
 
     this->openNetworkFileAction = new QAction(tr("Open network file"), this);
-    this->openNetworkFileAction->setShortcut(QKeySequence::fromString("ctrl+d"));
+    this->openNetworkFileAction->setShortcut(QKeySequence::fromString("ctrl+u"));
     this->openNetworkFileAction->setStatusTip(tr("Open a file from the network"));
     connect(openNetworkFileAction, &QAction::triggered, this, &Window::openNetworkFile);
 
@@ -69,6 +71,11 @@ void Window::createActions()
     this->saveFileAction->setShortcut(QKeySequence::Save);
     this->saveFileAction->setStatusTip(tr("Save a file"));
     connect(this->saveFileAction, &QAction::triggered, this, &Window::saveFile);
+
+    this->newFileAction = new QAction(tr("New file"), this);
+    this->newFileAction->setShortcut(QKeySequence::New);
+    this->newFileAction->setStatusTip(tr("Create a file"));
+    connect(this->newFileAction, &QAction::triggered, this, &Window::newFile);
 
     this->closeTabAction = new QAction(tr("Close tab"), this);
     this->closeTabAction->setShortcut(QKeySequence::fromString("ctrl+w"));
@@ -78,22 +85,8 @@ void Window::createActions()
 
 void Window::createSocket()
 {
-    this->sendAddress.sin_family = AF_INET;
-    this->sendAddress.sin_addr.s_addr = inet_addr("127.0.0.1");
-    this->sendAddress.sin_port = htons(4000);
-
-
-    if((this->socket = ::socket(AF_INET, SOCK_STREAM, 0)) == -1)
-    {
-        perror("Socket creation error");
-        exit(1);
-    }
-
-    if(::connect(this->socket, (struct sockaddr*) &this->sendAddress, sizeof(this->sendAddress)) == -1)
-    {
-        perror("Connect error.");
-        exit(1);
-    }
+    this->commThread = new CommunicationThread();
+    this->commThread->start();
 }
 
 void Window::createMenu()
@@ -103,30 +96,34 @@ void Window::createMenu()
     this->fileMenu->addAction(this->openFileAction);
     this->fileMenu->addAction(this->openNetworkFileAction);
     this->fileMenu->addAction(this->saveFileAction);
+    this->fileMenu->addAction(this->newFileAction);
     this->fileMenu->addAction(this->closeTabAction);
 }
 
 
-void Window::sendNetworkFile(QString filename)
+void Window::sendNetworkFile(QString filename, TextBox* textBox)
 {
-    QString sendData = "Sending " + filename;
-    sendString(this->socket, sendData);
+    QJsonObject object;
+    object["reason"] = "Sending file";
+    object["filename"] = filename;
+    object["filecontent"] = textBox->toPlainText();
 
-    sendData = this->textBox->toPlainText();
-    sendString(this->socket, sendData);
-    sendEnd(this->socket);
+    QJsonDocument document(object);
+    QString sendData = document.toJson(QJsonDocument::Compact);
+
+    sendString(this->commThread->getSocket(), sendData);
 }
 
 void Window::recvNetworkFile(QString filename)
 {
-    sendString(this->socket, QString("Open " + filename));
-    sendEnd(this->socket);
-    QString tabText = readStringFromSocket(this->socket);
-    QString textBoxText = readStringFromSocket(this->socket);
+    QJsonObject object;
+    object["reason"] = "Open file";
+    object["filename"] = filename;
 
+    QJsonDocument document(object);
+    QString sendData = document.toJson(QJsonDocument::Compact);
 
-    this->tabWidget->setTabText(0, tabText);
-    this->textBox->setText(textBoxText);
+    sendString(this->commThread->getSocket(), sendData);
 }
 
 void Window::openFile()
@@ -149,12 +146,14 @@ void Window::openFile()
         if(i != std::string::npos)
             fileName = fileNameSTD.substr(i + 1, fileNameSTD.length() - 1).c_str();
 
-        TextBox* newTextBox = new TextBox();
+        TextBox* newTextBox = new TextBox(this->commThread);
+        newTextBox->setIgnoreNextEvent();
         newTextBox->setText(tr(string));
-        this->tabWidget->addTab(newTextBox, fileName);
+        int newTab = this->tabWidget->addTab(newTextBox, fileName);
+        this->tabWidget->setCurrentIndex(newTab);
         free(string);
 
-        this->sendNetworkFile(fileName);
+        this->sendNetworkFile(fileName, newTextBox);
     }
 }
 
@@ -162,27 +161,62 @@ void Window::openNetworkFile()
 {
     if(this->list == NULL)
     {
-        this->list = new FileList(this->socket);
+        this->list = new FileList(this->commThread);
         this->list->exec();
 
-        QString filename = this->list->getOption();
-        if(filename != "")
-            recvNetworkFile(filename);
+        QString fileName = this->list->getOption();
+
+        if(fileName != "")
+        {
+            recvNetworkFile(fileName);
+        }
 
         delete this->list;
         this->list = NULL;
     }
 }
 
+void Window::newFile()
+{
+    TextBox* newTextBox = new TextBox(this->commThread);
+    int tabID = this->tabWidget->addTab(newTextBox, "Untitled");
+    this->tabWidget->setCurrentIndex(tabID);
+    newTextBox->setFocus();
+}
+
 void Window::saveFile()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save current file"), "", tr("Text file (*.txt)"));
-    if(fileName != "")
-    {
-        const char* string = this->textBox->toPlainText().toLatin1().data();
-        fflush(stdout);
+    QString filename = QFileDialog::getSaveFileName(this, tr("Save current file"),
+                                                    this->tabWidget->tabText(this->tabWidget->currentIndex()).mid(1, this->tabWidget->tabText(this->tabWidget->currentIndex()).length()),
+                                                    tr("Any file (*.*)"));
 
-        int fileD = ::open(fileName.toStdString().data(), O_WRONLY);
+    TextBox* textBox = NULL;
+    QWidget* widget = this->tabWidget->widget(this->tabWidget->currentIndex());
+    if (widget->metaObject()->className() == QString("TextBox"))
+        textBox = (TextBox*)widget;
+    else
+    {
+        QList<TextBox*> allTextBoxes = widget->findChildren<TextBox*>();
+        if (allTextBoxes.count() != 1)
+            return;
+
+        textBox = allTextBoxes[0];
+    }
+    TextBox* currentTextBox = textBox;
+
+    std::string filenameSTD = filename.toStdString();
+    size_t i = filenameSTD.rfind("/", filenameSTD.length());
+    if(i != std::string::npos)
+        filename = filenameSTD.substr(i + 1, filenameSTD.length() - 1).c_str();
+
+    currentTextBox->setFileName(filename);
+    this->tabWidget->setTabText(this->tabWidget->currentIndex(), filename);
+
+    if(filename != "")
+    {
+        const char* string = currentTextBox->toPlainText().toLatin1().data();
+
+        int fileD = ::open(filename.toStdString().data(), O_WRONLY | O_CREAT | O_TRUNC);
         ::write(fileD, string, strlen(string));
         ::close(fileD);
     }
@@ -190,6 +224,21 @@ void Window::saveFile()
 
 void Window::closeTab()
 {
-    delete this->tabWidget->widget(this->tabWidget->currentIndex())->children()[0];
     this->tabWidget->removeTab(this->tabWidget->currentIndex());
+}
+
+void Window::onJsonReceived(QJsonObject object)
+{
+    if(object.contains("reason"))
+        if(object["reason"] == "Open file")
+            if(object["filename"].toString() != "|NULL|" && object["filecontent"].toString() != "|NULL|")
+            {
+                TextBox* newTextBox = new TextBox(this->commThread);
+                newTextBox->setFileName(object["filename"].toString());
+                newTextBox->setIgnoreNextEvent();
+                int newTab = this->tabWidget->addTab(newTextBox, object["filename"].toString());
+                this->tabWidget->setCurrentIndex(newTab);
+
+                newTextBox->setText(object["filecontent"].toString());
+            }
 }

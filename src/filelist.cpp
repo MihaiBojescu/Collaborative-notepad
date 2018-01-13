@@ -1,57 +1,25 @@
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QJsonDocument>
+
 #include <unistd.h>
 #include "include/custombutton.h"
 #include "include/functions.h"
 #include "include/filelist.h"
 
-FileList::FileList(int socket)
+FileList::FileList(CommunicationThread *thread)
 {
-    this->socket = socket;
+    this->socket = thread->getSocket();
     this->layout = new QVBoxLayout();
     this->setLayout(this->layout);
+    connect(thread, SIGNAL(receivedMessage(QJsonObject)), this, SLOT(onJsonReceived(QJsonObject)));
 
-    QString buffer;
-    int readStringsNumber = 0;
-    const char* sendString = "Send\0";
+    QJsonObject object;
+    object["reason"] = "Send all files";
+    QJsonDocument document(object);
+    QString result(document.toJson(QJsonDocument::Compact));
 
-    ::sendString(this->socket, sendString);
-    ::sendEnd(this->socket);
-
-    do
-    {
-        buffer = readStringFromSocket(this->socket);
-        readStringsNumber++;
-
-        if(buffer.size() > 0)
-        {
-            QChar lastChar = buffer.at(buffer.size() - 1);
-
-            QHBoxLayout* newLayout = new QHBoxLayout();
-            QLabel* newLabel = new QLabel(buffer.mid(0, buffer.size() - 1));
-            this->layout->addLayout(newLayout);
-            newLayout->addWidget(newLabel);
-
-            if(lastChar == '+')
-            {
-                CustomButton* button = new CustomButton(buffer.mid(0, buffer.size() - 1));
-                button->setText("Edit this");
-                newLayout->addWidget(button);
-                connect(button, SIGNAL(released()), this, SLOT(buttonHandler()));
-            }
-            else
-            {
-                QPushButton* button = new QPushButton("Can't edit");
-                button->setEnabled(false);
-                newLayout->addWidget(button);
-            }
-        }
-    } while(buffer.size() != 0);
-
-    if(buffer.size() == 0 && readStringsNumber == 1)
-    {
-        QLabel* newLabel = new QLabel("No files are currently open");
-        this->resize(150, 100);
-        this->layout->addWidget(newLabel);
-    }
+    ::sendString(this->socket, result);
 
     this->setWindowTitle("Open network file");
 }
@@ -78,4 +46,52 @@ void FileList::buttonHandler()
     QString file = button->getLabelText();
     this->filename = file;
     this->done(1);
+}
+
+void FileList::onJsonReceived(QJsonObject object)
+{
+    if(object.contains("reason"))
+    {
+        if(object["reason"] == "Send all files")
+        {
+            if(object.contains(QString("files")))
+            {
+                QJsonArray responseArray = object["files"].toArray();
+
+                if(object["files"].isArray() && object["files"].toArray().isEmpty())
+                {
+                    QLabel* newLabel = new QLabel("No files are currently open");
+                    this->resize(150, 100);
+                    this->layout->addWidget(newLabel);
+                }
+                else
+                {
+                    for(QJsonValueRef element: responseArray)
+                    {
+                        QString string = element.toString();
+                        QHBoxLayout* newLayout = new QHBoxLayout();
+                        QLabel* newLabel = new QLabel(string.mid(0, string.size() - 1));
+                        this->layout->addLayout(newLayout);
+                        newLayout->addWidget(newLabel);
+
+
+                        QChar lastChar = string.at(string.size() - 1);
+                        if(lastChar == '+')
+                        {
+                            CustomButton* button = new CustomButton(string.mid(0, string.size() - 1));
+                            button->setText("Edit this");
+                            newLayout->addWidget(button);
+                            connect(button, SIGNAL(released()), this, SLOT(buttonHandler()));
+                        }
+                        else
+                        {
+                            QPushButton* button = new QPushButton("Can't edit");
+                            button->setEnabled(false);
+                            newLayout->addWidget(button);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

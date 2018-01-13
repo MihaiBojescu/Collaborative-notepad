@@ -1,8 +1,8 @@
+#include "include/functions.h"
 #include <QString>
 #include <unistd.h>
-#include "include/functions.h"
 
-QString readStringFromSocket(int socket)
+QString readStringFromSocket(int& socket)
 {
     QString buffer = "";
     char currentChar;
@@ -17,7 +17,8 @@ QString readStringFromSocket(int socket)
         }
         else if(bytesWritten == 0)
         {
-            exit(1);
+            close(socket);
+            socket = -1;
         }
         else
         {
@@ -32,15 +33,6 @@ QString readStringFromSocket(int socket)
 void sendString(int socket, QString string)
 {
     if(write(socket, string.toStdString().c_str(), string.size() + 1) == -1)
-    {
-        perror("Write error.");
-        exit(1);
-    }
-}
-
-void sendEnd(int socket)
-{
-    if(write(socket, "\0", 1) == -1)
     {
         perror("Write error.");
         exit(1);

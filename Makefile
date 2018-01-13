@@ -55,16 +55,24 @@ SOURCES       = src/main.cpp \
 		src/textbox.cpp \
 		src/filelist.cpp \
 		src/functions.cpp \
-		src/custombutton.cpp qrc_resources.cpp \
-		moc_filelist.cpp
+		src/custombutton.cpp \
+		src/communicationthread.cpp qrc_resources.cpp \
+		moc_window.cpp \
+		moc_textbox.cpp \
+		moc_filelist.cpp \
+		moc_communicationthread.cpp
 OBJECTS       = main.o \
 		window.o \
 		textbox.o \
 		filelist.o \
 		functions.o \
 		custombutton.o \
+		communicationthread.o \
 		qrc_resources.o \
-		moc_filelist.o
+		moc_window.o \
+		moc_textbox.o \
+		moc_filelist.o \
+		moc_communicationthread.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -346,12 +354,14 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		include/textbox.h \
 		include/filelist.h \
 		include/functions.h \
-		include/custombutton.h src/main.cpp \
+		include/custombutton.h \
+		include/communicationthread.h src/main.cpp \
 		src/window.cpp \
 		src/textbox.cpp \
 		src/filelist.cpp \
 		src/functions.cpp \
-		src/custombutton.cpp
+		src/custombutton.cpp \
+		src/communicationthread.cpp
 QMAKE_TARGET  = Project
 DESTDIR       = 
 TARGET        = Project
@@ -944,8 +954,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents include/window.h include/textbox.h include/filelist.h include/functions.h include/custombutton.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/main.cpp src/window.cpp src/textbox.cpp src/filelist.cpp src/functions.cpp src/custombutton.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents include/window.h include/textbox.h include/filelist.h include/functions.h include/custombutton.h include/communicationthread.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/main.cpp src/window.cpp src/textbox.cpp src/filelist.cpp src/functions.cpp src/custombutton.cpp src/communicationthread.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -983,13 +993,33 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong -fno-plt -Wall -W -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_filelist.cpp
+compiler_moc_header_make_all: moc_window.cpp moc_textbox.cpp moc_filelist.cpp moc_communicationthread.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_filelist.cpp
-moc_filelist.cpp: include/filelist.h \
+	-$(DEL_FILE) moc_window.cpp moc_textbox.cpp moc_filelist.cpp moc_communicationthread.cpp
+moc_window.cpp: include/textbox.h \
+		include/communicationthread.h \
+		include/filelist.h \
+		include/window.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I'/home/michael/Documents/Facultate/Anul 2/Reţele de calculatoare/Project' -I'/home/michael/Documents/Facultate/Anul 2/Reţele de calculatoare/Project' -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.1 -I/usr/include/c++/7.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include-fixed -I/usr/include include/window.h -o moc_window.cpp
+
+moc_textbox.cpp: include/communicationthread.h \
+		include/textbox.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I'/home/michael/Documents/Facultate/Anul 2/Reţele de calculatoare/Project' -I'/home/michael/Documents/Facultate/Anul 2/Reţele de calculatoare/Project' -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.1 -I/usr/include/c++/7.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include-fixed -I/usr/include include/textbox.h -o moc_textbox.cpp
+
+moc_filelist.cpp: include/communicationthread.h \
+		include/filelist.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I'/home/michael/Documents/Facultate/Anul 2/Reţele de calculatoare/Project' -I'/home/michael/Documents/Facultate/Anul 2/Reţele de calculatoare/Project' -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.1 -I/usr/include/c++/7.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include-fixed -I/usr/include include/filelist.h -o moc_filelist.cpp
+
+moc_communicationthread.cpp: include/communicationthread.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I'/home/michael/Documents/Facultate/Anul 2/Reţele de calculatoare/Project' -I'/home/michael/Documents/Facultate/Anul 2/Reţele de calculatoare/Project' -I/usr/include/qt -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/7.2.1 -I/usr/include/c++/7.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/7.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/7.2.1/include-fixed -I/usr/include include/communicationthread.h -o moc_communicationthread.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1009,20 +1039,26 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 main.o: src/main.cpp include/window.h \
 		include/textbox.h \
+		include/communicationthread.h \
 		include/filelist.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
-window.o: src/window.cpp include/window.h \
+window.o: src/window.cpp include/functions.h \
+		include/window.h \
 		include/textbox.h \
+		include/communicationthread.h \
 		include/filelist.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o window.o src/window.cpp
 
-textbox.o: src/textbox.cpp include/textbox.h
+textbox.o: src/textbox.cpp include/textbox.h \
+		include/communicationthread.h \
+		include/functions.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o textbox.o src/textbox.cpp
 
 filelist.o: src/filelist.cpp include/custombutton.h \
 		include/functions.h \
-		include/filelist.h
+		include/filelist.h \
+		include/communicationthread.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o filelist.o src/filelist.cpp
 
 functions.o: src/functions.cpp include/functions.h
@@ -1031,11 +1067,25 @@ functions.o: src/functions.cpp include/functions.h
 custombutton.o: src/custombutton.cpp include/custombutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o custombutton.o src/custombutton.cpp
 
+communicationthread.o: src/communicationthread.cpp include/communicationthread.h \
+		include/functions.h \
+		include/textbox.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o communicationthread.o src/communicationthread.cpp
+
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
 
+moc_window.o: moc_window.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_window.o moc_window.cpp
+
+moc_textbox.o: moc_textbox.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_textbox.o moc_textbox.cpp
+
 moc_filelist.o: moc_filelist.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_filelist.o moc_filelist.cpp
+
+moc_communicationthread.o: moc_communicationthread.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_communicationthread.o moc_communicationthread.cpp
 
 ####### Install
 

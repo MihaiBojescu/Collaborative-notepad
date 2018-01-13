@@ -1,149 +1,82 @@
-#include <QQueue>
-#include <QRegExp>
-#include <QKeyEvent>
 #include "include/textbox.h"
+#include "include/functions.h"
+#include "include/communicationthread.h"
 
-TextBox::TextBox()
+#include <QJsonObject>
+#include <QJsonDocument>
+
+TextBox::TextBox(CommunicationThread *thread)
 {
     oldText = this->toPlainText();
+    this->thread = thread;
+    this->fileName = "|NULL|";
     connect(this, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
+    connect(thread, SIGNAL(receivedMessage(QJsonObject)), this, SLOT(onJsonReceived(QJsonObject)));
 }
 
-int TextBox::min(int a, int b, int c)
+TextBox::~TextBox()
 {
-    return std::min(std::min(a, b), c);
+    disconnect(this, SIGNAL(textChanged()), this, SLOT(onTextChanged()));
+    disconnect(thread, SIGNAL(receivedMessage(QJsonObject)), this, SLOT(onJsonReceived(QJsonObject)));
 }
 
-int TextBox::editDistance(const QString a, const QString b)
+void TextBox::setFileName(QString fileName)
 {
-    int matrix[a.size() + 1][b.size() + 1];
-
-    for(int i = 0; i <= a.size(); ++i)
-    {
-        for(int j = 0; j <= b.size(); ++j)
-        {
-            if(i == 0)
-                matrix[i][j] = j;
-
-            else if(j == 0)
-                matrix[i][j] = i;
-
-            else if(a[i - 1] == b[j - 1])
-                matrix[i][j] = matrix[i - 1][j - 1];
-
-            else
-                matrix[i][j] = 1 + min(matrix[i][j - 1],
-                                       matrix[i - 1][j],
-                                       matrix[i - 1][j - 1]);
-        }
-    }
-
-    return matrix[a.size()][b.size()];
+    this->fileName = fileName;
 }
 
-QStringList TextBox::buildWordList(const QString string)
+void TextBox::setIgnoreNextEvent()
 {
-    QStringList result;
-    QRegExp expression("[a-zA-Z0-9]+[^a-zA-Z0-9]*");
-    int position = 0;
-
-    while ((position = expression.indexIn(string, position)) != -1)
-    {
-        result << expression.cap();
-        position += expression.matchedLength();
-    }
-
-    return result;
+    this->ignoreNextEvent = true;
 }
 
-QString TextBox::getDifference(QString a, QString b)
+QString TextBox::getDifference(QString newString, QString originalString = "")
 {
-
-    if(a.size() == 0)
-        return "- " + b;
-
-    if(b.size() == 0)
-        return "+ " + a;
-
-    QString result = "";
-    QStringList listOfStringsA = buildWordList(a);
-    QStringList listOfStringsB = buildWordList(b);
-    QQueue<word> queue;
-    word minWord;
-    int min;
-    bool continueInside = true;
-
-    for(int i = 0; i < listOfStringsA.size(); ++i)
-    {
-        QString stringA = listOfStringsA[i];
-
-        queue.empty();
-        min = stringA.size();
-        continueInside = true;
-        for(int j = 0; j < listOfStringsB.size() && continueInside; ++j)
-        {
-            QString stringB = listOfStringsB[j];
-
-            if(stringA == stringB)
-            {
-                listOfStringsA.removeAt(listOfStringsA.indexOf(stringA));
-                listOfStringsB.removeAt(listOfStringsB.indexOf(stringB));
-                continueInside = false;
-
-                // We removed the current element, so we need to reevaluate it
-                --i;
-            }
-            else
-            {
-                word newWord;
-                newWord.string = stringB;
-                newWord.distance = this->editDistance(stringA, stringB);
-                queue.push_back(newWord);
-            }
-        }
-        if(continueInside)
-        {
-            for(word currentWord: queue)
-            {
-                if(currentWord.distance < min)
-                {
-                    min = currentWord.distance;
-                    minWord = currentWord;
-                }
-            }
-            if(min <= stringA.size())
-            {
-                listOfStringsA.removeAt(listOfStringsA.indexOf(stringA));
-                listOfStringsB.removeAt(listOfStringsB.indexOf(minWord.string));
-                if(minWord.string.size() > stringA.size())
-                {
-                    result += "+ " + minWord.string + "\n";
-                    if(stringA.size() > 0)
-                        result += "- " + stringA + "\n";
-                }
-                else
-                {
-                    result += "+ " + stringA + "\n";
-                    if(minWord.string.size() > 0)
-                        result += "- " + minWord.string + "\n";
-                }
-                --i;
-            }
-        }
-    }
-
-    for(QString string: listOfStringsA)
-        result += "+ " + string + "\n";
-
-    for(QString string: listOfStringsB)
-        result += "- " + string + "\n";
-
-    return result;
+    return newString;
 }
 
 void TextBox::onTextChanged()
 {
-    QString diff = this->getDifference(this->toPlainText(), this->oldText);
+    if(!this->ignoreNextEvent && this->thread->getSocket() != -1 && this->fileName != "|NULL|")
+    {
+        QString diff = this->getDifference(this->toPlainText(), this->oldText);
+
+        QJsonObject object;
+        object["reason"] = "Edit file";
+        object["filename"] = this->fileName;
+        object["filecontent"] = diff;
+
+        QJsonDocument document(object);
+        QString result(document.toJson(QJsonDocument::Compact));
+
+        sendString(thread->getSocket(), result);
+
+    }
+    this->ignoreNextEvent = false;
     this->oldText = this->toPlainText();
+}
+
+void TextBox::onJsonReceived(QJsonObject object)
+{
+    if(object.contains("reason"))
+        if(object["reason"] == "Edit file")
+            if(this->fileName == object["filename"].toString())
+            {
+                QString oldText = this->toPlainText();
+                QString newText = object["filecontent"].toString();
+
+                int diffX = newText.length() - oldText.length();
+                int max = newText.length() < oldText.length() ? oldText.length() : newText.length();
+
+                if(this->cursor().pos().x() + diffX >= 0 && this->cursor().pos().x() + diffX < max)
+                    this->cursor().setPos(this->cursor().pos().x() + diffX, this->cursor().pos().y());
+                else if(this->cursor().pos().x() + diffX < 0)
+                    this->cursor().setPos(0, this->cursor().pos().y());
+                else
+                    this->cursor().setPos(max, this->cursor().pos().y());
+
+                this->setIgnoreNextEvent();
+                this->setText(newText);
+            }
 }
 
