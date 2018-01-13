@@ -24,3 +24,10 @@ The keybings are the following:
 * `CTRL + W` -> Close tab
 
 The application is made to feel natural. A client can start to edit right away. Changes will be mirrored automatically to the server and also to the other connected client using the same file the used is using.
+
+# Photo examples:
+Running on KDE Plasma 5.11
+
+
+![Example](https://github.com/MihaiBojescu/Collaborative-notepad/blob/master/res/example.png "Example")
+![Menu](https://github.com/MihaiBojescu/Collaborative-notepad/blob/master/res/menu.png "Menu")
