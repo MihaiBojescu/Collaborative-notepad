@@ -1,0 +1,11 @@
+<map id="include/textbox.h" name="include/textbox.h">
+<area shape="rect" id="node2" href="$build_2moc__textbox_8cpp.html" title="build/moc_textbox.cpp" alt="" coords="73,80,227,107"/>
+<area shape="rect" id="node3" href="$window_8h.html" title="include/window.h" alt="" coords="251,80,372,107"/>
+<area shape="rect" id="node8" href="$moc__textbox_8cpp.html" title="moc_textbox.cpp" alt="" coords="397,80,519,107"/>
+<area shape="rect" id="node9" href="$communicationthread_8cpp.html" title="src/communicationthread.cpp" alt="" coords="544,80,737,107"/>
+<area shape="rect" id="node10" href="$textbox_8cpp.html" title="src/textbox.cpp" alt="" coords="762,80,874,107"/>
+<area shape="rect" id="node4" href="$build_2moc__window_8cpp.html" title="build/moc_window.cpp" alt="" coords="5,155,159,181"/>
+<area shape="rect" id="node5" href="$moc__window_8cpp.html" title="moc_window.cpp" alt="" coords="183,155,306,181"/>
+<area shape="rect" id="node6" href="$main_8cpp.html" title="src/main.cpp" alt="" coords="331,155,428,181"/>
+<area shape="rect" id="node7" href="$window_8cpp.html" title="src/window.cpp" alt="" coords="453,155,565,181"/>
+</map>

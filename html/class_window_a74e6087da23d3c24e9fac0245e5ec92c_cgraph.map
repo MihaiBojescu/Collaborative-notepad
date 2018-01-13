@@ -1,0 +1,5 @@
+<map id="Window::Window" name="Window::Window">
+<area shape="rect" id="node2" href="$class_window.html#a42d7e97515bb763d8c150822e17e23bd" title="Window::onJsonReceived" alt="" coords="177,31,352,57"/>
+<area shape="rect" id="node3" href="$class_text_box.html#ae844b2f803d89d4e07f4985b846c33a1" title="TextBox::setFileName" alt="" coords="421,5,573,32"/>
+<area shape="rect" id="node4" href="$class_text_box.html#ab90841c2de5cb98571dfcee727162b0f" title="TextBox::setIgnoreNextEvent" alt="" coords="400,56,595,83"/>
+</map>

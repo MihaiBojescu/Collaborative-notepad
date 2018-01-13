@@ -1,0 +1,7 @@
+<map id="Window::~Window" name="Window::~Window">
+<area shape="rect" id="node2" href="$functions_8h.html#a856136a6d93be60fb2d7663c33db2b4f" title="sendString" alt="" coords="241,5,325,32"/>
+<area shape="rect" id="node3" href="$class_communication_thread.html#a4fa5c2df6c6a074b4be5f5ce99616ecf" title="CommunicationThread\l::getSocket" alt="" coords="207,57,359,98"/>
+<area shape="rect" id="node4" href="$class_text_box.html#ab90841c2de5cb98571dfcee727162b0f" title="TextBox::setIgnoreNextEvent" alt="" coords="185,123,380,149"/>
+<area shape="rect" id="node5" href="$class_file_list.html#afef338c1a846a32d600498b910c8c85c" title="FileList::getOption" alt="" coords="219,173,347,200"/>
+<area shape="rect" id="node6" href="$class_text_box.html#ae844b2f803d89d4e07f4985b846c33a1" title="TextBox::setFileName" alt="" coords="207,224,359,251"/>
+</map>

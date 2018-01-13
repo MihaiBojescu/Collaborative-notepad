@@ -1,0 +1,7 @@
+<map id="sendString" name="sendString">
+<area shape="rect" id="node2" href="$class_file_list.html#a226862fa91caf1d5043e89706d2728ac" title="FileList::FileList" alt="" coords="164,5,279,32"/>
+<area shape="rect" id="node3" href="$class_text_box.html#a2877d8e9891067e4c811afee1c23975a" title="TextBox::onTextChanged" alt="" coords="137,56,305,83"/>
+<area shape="rect" id="node6" href="$class_window.html#a245d821e6016fa1f6970ccbbedd635f6" title="Window::~Window" alt="" coords="155,107,287,133"/>
+<area shape="rect" id="node4" href="$class_text_box.html#afc674d42cb4bf2b07115f067b27b5e4a" title="TextBox::TextBox" alt="" coords="357,31,484,57"/>
+<area shape="rect" id="node5" href="$class_text_box.html#ac3cc88a3ac171658ebaf44b01f4adf80" title="TextBox::~TextBox" alt="" coords="353,81,488,108"/>
+</map>
